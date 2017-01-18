@@ -13,6 +13,7 @@ if(isset($_GET['order']) && isset($_GET['column'])){
 }
 
 if(!empty($_POST)){
+
 	foreach($_POST as $key => $value) {
 		$_POST[$key] = strip_tags(trim($value));
 	}
@@ -36,7 +37,7 @@ if(!empty($_POST)){
 		$errors[] = 'La ville ne peut être vide';
 	}
 
-	if(isset($errors) && count($errors) === 0) {
+	if(isset($errors) && empty($errors)) {
 		// error = 0 = insertion user
 		$insertUser = $db->prepare('INSERT INTO users (gender, firstname, lastname, email, birthdate, city) VALUES(:gender, :firstname, :lastname, :email, :birthdate, :city)');
 		$insertUser->bindValue(':gender', $_POST['gender']);
@@ -45,6 +46,7 @@ if(!empty($_POST)){
 		$insertUser->bindValue(':email', $_POST['email']);
 		$insertUser->bindValue(':birthdate', date('Y-m-d', strtotime($_POST['birthdate'])));
 		$insertUser->bindValue(':city', $_POST['city']);
+
 		if($insertUser->execute()){
 			$createUser = true;
 		} else {
@@ -124,7 +126,8 @@ if($queryUsers->execute()){
 								<div class="col-md-8">
 									<select id="gender" name="gender" class="form-control input-md" required>
 										<option value="Mlle">Mademoiselle</option>
-										<option value="Mme">Madame</option><option value="M">Monsieur</option>
+										<option value="Mme">Madame</option>
+										<option value="M">Monsieur</option>
 									</select>
 								</div>
 							</div>
