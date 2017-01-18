@@ -2,7 +2,6 @@
 // récupère la connexion à la BDD
 require_once 'connect.php';
 
-
 $order = '';
 if(isset($_GET['order']) && isset($_GET['column'])){
 	if($_GET['column'] == 'lastname') { $order = ' ORDER BY lastname'; }
@@ -36,9 +35,8 @@ if(!empty($_POST)){
 	if(empty($_POST['city'])) {
 		$errors[] = 'La ville ne peut être vide';
 	}
-
-	if(isset($errors) && empty($errors)) {
-		// error = 0 = insertion user
+	if(empty($errors)) {
+			// error = 0 = insertion user
 		$insertUser = $db->prepare('INSERT INTO users (gender, firstname, lastname, email, birthdate, city) VALUES(:gender, :firstname, :lastname, :email, :birthdate, :city)');
 		$insertUser->bindValue(':gender', $_POST['gender']);
 		$insertUser->bindValue(':firstname', $_POST['firstname']);
@@ -62,7 +60,7 @@ if($queryUsers->execute()){
 ?><!DOCTYPE html>
 <html>
 	<head>
-		<title>Exercice 1</title>
+		<title>Exercice 2</title>
 		<meta charset="utf-8">
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 	</head>
